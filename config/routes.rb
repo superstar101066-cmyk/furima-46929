@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root to: 'items#index' #一覧表示ページを表示する
 end
 
-  #localhost用： ⑴ HTTPメソッド ⑵ 'URIパターン', to: ⑶ 'コントローラー名 ⑷#アクション名  ['get '/items', to: 'items#index']
+
+#localhost用： ⑴ HTTPメソッド ⑵ 'URIパターン', to: ⑶ 'コントローラー名 ⑷#アクション名  ['get '/items', to: 'items#index']
   #Render用：    ⑸ ルートパス: '⑶ コントローラー名 ⑷#アクション名  [root to: 'items#index']
 
   # ⑴ HTTPメソッド
