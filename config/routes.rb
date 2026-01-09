@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: 'items#index' #一覧表示ページを表示する
 end
 
