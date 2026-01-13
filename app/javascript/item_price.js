@@ -1,8 +1,9 @@
-window.addEventListener('turbo:load', () => {
+// 計算処理を「priceCalc」という名前の関数として定義
+const priceCalc = () => {
   // 販売価格(priceInput.value)の入力欄の要素を取得し、priceInput変数に格納
   const priceInput = document.getElementById("item-price");
 
-  // 【追加】要素が存在しない場合は、ここで処理を終了する（ガード句）
+  // 要素が存在しない場合は、ここで処理を終了する（ガード句）
   if (!priceInput) return;
 
   // 販売価格(priceInput.value)入力欄に値が入力されるたびに実行されるイベントリスナーを追加
@@ -19,7 +20,14 @@ window.addEventListener('turbo:load', () => {
     const profit = inputValue - tax; // 利益 = 販売価格 - 販売手数料  [利益(profit)が計算されてprofit変数に格納される。]
     profitDom.innerHTML = profit; // 利益(profit)を表示欄に反映
   })
-});
+};
+
+// ①通常のページ読み込み時に実行
+window.addEventListener('turbo:load', priceCalc);
+
+// ②バリデーションエラーなどで「render」された時に実行
+window.addEventListener('turbo:render', priceCalc);
+
 
 // windowオブジェクトとは、ブラウザのウィンドウを表すオブジェクトであり、グローバルなコンテキストを提供する。
   // windowオブジェクトのaddEventListenerメソッドを使って、特定のイベントが発生したときに関数を実行するようにしている。
