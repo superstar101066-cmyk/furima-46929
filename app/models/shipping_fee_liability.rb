@@ -1,4 +1,4 @@
-#配送料の負担
+# 配送料の負担
 class ShippingFeeLiability < ActiveHash::Base
   self.data = [
     { id: 1, name: '---' },

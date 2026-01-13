@@ -1,4 +1,4 @@
-#発送までの日数
+# 発送までの日数
 class ShippingDateStatus < ActiveHash::Base
   self.data = [
     { id: 1, name: '---' },
