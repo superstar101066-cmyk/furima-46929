@@ -3,7 +3,6 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @items = Item.all # 後ほど一覧表示で使用
   end
 
   def new
