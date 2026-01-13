@@ -1,4 +1,5 @@
 FactoryBot.define do
+  # 出品できるときのデータ
   factory :item do
     item_name                 {"テスト商品"}
     description               {"テストの説明"}
@@ -23,7 +24,6 @@ end
 # io: File.open('public/images/test_image.png') : 添付する画像ファイルを指定しており、今回は、プロジェクトのpublic/imagesディレクトリにあるtest_image.pngファイルを開いている。
 # filename: 'test_image.png' : 添付する画像のファイル名を指定している。
 # content_type: 'image/png' : 添付する画像のMIMEタイプを指定している。
-
 # FactoryBot: Railsアプリケーションでテストデータを簡単に作成・管理するためのライブラリ。
 # コールバックメソッド: FactoryBotの特定のタイミングで処理を実行するための予約命令。
 # Active Storage: Railsの組み込み機能で、ファイルのアップロードと管理を簡単に行うための仕組み。
