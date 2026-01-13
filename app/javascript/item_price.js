@@ -2,12 +2,11 @@
 const priceCalc = () => {
   // 販売価格(priceInput.value)の入力欄の要素を取得し、priceInput変数に格納
   const priceInput = document.getElementById("item-price");
-
   // 要素が存在しない場合は、ここで処理を終了する（ガード句）
   if (!priceInput) return;
 
-  // 販売価格(priceInput.value)入力欄に値が入力されるたびに実行されるイベントリスナーを追加
-  priceInput.addEventListener("input", () => {
+  // 計算処理を「updatePrice」という関数として独立させる
+  const updatePrice = () => {
     const inputValue = priceInput.value; // 入力された販売価格(priceInput.value)の値を取得し、inputValue変数に格納される。
     const addTaxDom = document.getElementById("add-tax-price"); // 販売手数料(tax)表示欄の要素を取得し、addTaxDom変数に格納される。
     const profitDom = document.getElementById("profit"); // 利益(profit)表示欄の要素を取得し、profitDom変数に格納される。
@@ -19,13 +18,21 @@ const priceCalc = () => {
     // 利益(profit)を計算。
     const profit = inputValue - tax; // 利益 = 販売価格 - 販売手数料  [利益(profit)が計算されてprofit変数に格納される。]
     profitDom.innerHTML = profit; // 利益(profit)を表示欄に反映
-  })
+  };
+
+  // ページ読み込み/再描画時に、すでに値があれば計算して表示
+  if (priceInput.value) {
+    updatePrice();
+  }
+
+  // 入力欄に値が打ち込まれたときに計算して表示
+  priceInput.addEventListener("input", updatePrice);
 };
 
-// ①通常のページ読み込み時に実行
+// 通常のページ読み込み時に実行
 window.addEventListener('turbo:load', priceCalc);
 
-// ②バリデーションエラーなどで「render」された時に実行
+// バリデーションエラーなどで「render」された時に実行
 window.addEventListener('turbo:render', priceCalc);
 
 
