@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  # ログインしていないユーザーはログインページにリダイレクト（index以外）
-  before_action :authenticate_user!, except: [:index]
+  # ログインしていないユーザーはログインページにリダイレクト（index,show以外）
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     # 全ての商品を、作成日時が新しい順（降順）で取得
@@ -21,6 +21,10 @@ class ItemsController < ApplicationController
     end
   end
 
+  def show
+    @item = Item.find(params[:id]) # 詳細ページ用のインスタンス変数
+  end
+
   private
 
   def item_params
@@ -35,3 +39,4 @@ end
 # order("created_at DESC")とは、取得したレコードを作成日時（created_at）が新しい順（降順）に並べ替えること
 # created_atは、「作成日時」のカラムを指す
 # DESCは「降順」を意味し、新しいもの（大きい値）から古いもの（小さい値）へと順に並べることを指す
+# Item.find(params[:id])とは、URLの末尾に含まれるidパラメーターを使って、特定の商品のレコードをデータベースから取得すること
