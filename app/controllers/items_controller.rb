@@ -43,12 +43,12 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-  
-  if @item.destroy # 商品の削除に成功した場合
+    if @item.destroy # 商品の削除に成功した場合
       redirect_to root_path # トップページにリダイレクト
-  else # 商品の削除に失敗した場合
-    # 削除失敗時は詳細ページに戻る。
-    render :show, status: :unprocessable_entity
+    else # 商品の削除に失敗した場合
+      # 削除失敗時は詳細ページに戻る。
+      render :show, status: :unprocessable_entity
+    end
   end
 
   private
