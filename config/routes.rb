@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'items#index' #一覧表示ページを表示する
   #itemsコントローラーのindex,new,createアクションに対応するルーティングを設定
-  resources :items, only: [:index,:new, :create]
+  resources :items, only: [:index,:new, :create, :show]
 end
 
 #localhost用： ⑴ HTTPメソッド ⑵ 'URIパターン', to: ⑶ 'コントローラー名 ⑷#アクション名  ['get '/items', to: 'items#index']
