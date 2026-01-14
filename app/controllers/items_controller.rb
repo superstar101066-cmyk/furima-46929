@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
   end
 
   private
-  
+
   # ストロングパラメータ
   def item_params
     params.require(:item).permit(
@@ -69,9 +69,9 @@ class ItemsController < ApplicationController
   # 出品者本人か確認し、違う場合はトップページにリダイレクトするメソッド
   def move_to_index
     # 出品者本人でなければトップページにリダイレクト
-    unless current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    return if current_user.id == @item.user_id
+
+    redirect_to root_path
   end
 end
 
