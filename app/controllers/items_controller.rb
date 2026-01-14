@@ -2,9 +2,9 @@ class ItemsController < ApplicationController
   # ログインしていないユーザーはログインページにリダイレクト（index,show以外）
   before_action :authenticate_user!, except: [:index, :show]
   # 共通化：指定したアクションの前に商品情報を取得する
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
   # 権限ガード：出品者本人でない場合はトップへ戻す
-  before_action :move_to_index, only: [:edit, :update]
+  before_action :move_to_index, only: [:edit, :update, :destroy]
 
   def index
     # 全ての商品を、作成日時が新しい順（降順）で取得
@@ -42,8 +42,17 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    if @item.destroy # 商品の削除に成功した場合
+      redirect_to root_path # トップページにリダイレクト
+    else # 商品の削除に失敗した場合
+      # 削除失敗時は詳細ページに戻る。
+      render :show, status: :unprocessable_entity
+    end
+  end
+
   private
-  
+
   # ストロングパラメータ
   def item_params
     params.require(:item).permit(
@@ -60,9 +69,9 @@ class ItemsController < ApplicationController
   # 出品者本人か確認し、違う場合はトップページにリダイレクトするメソッド
   def move_to_index
     # 出品者本人でなければトップページにリダイレクト
-    unless current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    return if current_user.id == @item.user_id
+
+    redirect_to root_path
   end
 end
 
