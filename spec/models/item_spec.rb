@@ -55,13 +55,13 @@ RSpec.describe Item, type: :model do
       it 'priceが300未満では保存できない' do
         @item.price = 299 # 価格を299に設定
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
 
       it 'priceが10,000,000以上では保存できない' do
         @item.price = 10_000_000 # 価格を10,000,000に設定
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
 
       it 'item_nameが空では保存できない' do
@@ -86,7 +86,7 @@ RSpec.describe Item, type: :model do
       it 'priceが半角数値以外では保存できない' do
         @item.price = '１０００' # 価格の値を全角に設定
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
 
       it 'userが紐付いていないと保存できない' do
@@ -94,7 +94,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('User must exist')
       end
-
     end
   end
-end  
+end

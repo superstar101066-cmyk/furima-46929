@@ -3,6 +3,8 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
+    # 全ての商品を、作成日時が新しい順（降順）で取得
+    @items = Item.all.order('created_at DESC')
   end
 
   def new
@@ -29,3 +31,7 @@ class ItemsController < ApplicationController
   end
 end
 
+# Item.allとは、データベースの items（商品）テーブルにあるすべてのレコードを取得すること
+# order("created_at DESC")とは、取得したレコードを作成日時（created_at）が新しい順（降順）に並べ替えること
+# created_atは、「作成日時」のカラムを指す
+# DESCは「降順」を意味し、新しいもの（大きい値）から古いもの（小さい値）へと順に並べることを指す
