@@ -7,6 +7,8 @@ class OrdersController < ApplicationController
   before_action :authenticate_user! 
   # 共通の@item取得処理
   before_action :set_item, only: [:index, :create]
+  # アイテム取得後にリダイレクト判定を行う
+  before_action :move_to_index, only: [:index, :create]
 
   def index
     @order_address = OrderAddress.new
@@ -32,6 +34,13 @@ class OrdersController < ApplicationController
 
   def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def move_to_index
+    # 「出品者自身である」または「すでに売れている」場合、トップページへ戻す 
+    if current_user.id == @item.user_id || @item.order.present?
+      redirect_to root_path
+    end
   end
 
   def order_params
