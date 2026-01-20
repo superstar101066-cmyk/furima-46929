@@ -2,6 +2,8 @@ class OrdersController < ApplicationController
   def index # 購入情報入力ページを表示する
     # ネストされたitemの情報を取得
     @item = Item.find(params[:item_id])
+    # 購入情報と発送先住所情報を同時に保存するためのフォームオブジェクトを生成後、変数に代入してビューに渡す
+    @order_address = OrderAddress.new
     # PAY.JP公開鍵をJS側に渡す
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
