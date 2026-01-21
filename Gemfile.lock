@@ -180,8 +180,7 @@ GEM
     msgpack (1.8.0)
     multi_json (1.19.1)
     mutex_m (0.3.0)
-    mysql2 (0.5.7)
-      bigdecimal
+    mysql2 (0.5.3)
     net-imap (0.6.2)
       date
       net-protocol
@@ -364,7 +363,7 @@ DEPENDENCIES
   gon
   importmap-rails
   jbuilder
-  mysql2 (~> 0.5)
+  mysql2 (= 0.5.3)
   payjp
   pg
   puma (>= 5.0)

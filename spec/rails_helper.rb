@@ -38,7 +38,6 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
-
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
@@ -61,4 +60,12 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.before(:suite) do
+    # ActiveRecordの内部的なFiber共有を無効化する試行
+    ActiveRecord::ConnectionAdapters::ConnectionPool.class_eval do
+      def lock_thread_id
+        Thread.current.object_id
+      end
+    end
+  end
 end

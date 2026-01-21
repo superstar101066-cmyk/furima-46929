@@ -16,23 +16,28 @@ class OrderAddress
     validates :city # 市区町村のバリデーション
     validates :house_number # 番地のバリデーション
     # 電話番号のバリデーション (ハイフンなしの10桁or11桁の数値のみ許可)
-    validates :phone_number, format: {with: /\A[0-9]{10,11}\z/, message: "is invalid. Input only number"}
+    validates :phone_number, format: {with: /\A[0-9]{10,11}\z/, message: "is invalid"}
     validates :token # PAY.JPからの決済用トークンを受け取るための属性
   end
 
-  def save # 購入記録と住所情報を保存するメソッド
-    # 購入記録(orders)を保存し、変数orderに代入
-    order = Order.create(user_id: user_id, item_id: item_id)
-    # 配送先(addresses)を保存
-    Address.create(
-      postal_code: postal_code, # 郵便番号
-      prefecture_id: prefecture_id, # 都道府県ID
-      city: city, # 市区町村
-      house_number: house_number, # 番地
-      building_name: building_name, # 建物名
-      phone_number: phone_number, # 電話番号
-      order_id: order.id # 購入記録ID
-    )
+  def save
+    # ここから修正：トランザクション（一連の処理をひとまとめにする）
+    ActiveRecord::Base.transaction do
+      # create! を使い、失敗時に例外（エラー）を発生させる
+      order = Order.create!(user_id: user_id, item_id: item_id)
+      Address.create!(
+        postal_code: postal_code,
+        prefecture_id: prefecture_id,
+        city: city,
+        house_number: house_number,
+        building_name: building_name,
+        phone_number: phone_number,
+        order_id: order.id
+      )
+    end
+    true # すべて成功したら true を返す
+  rescue => e
+    false # どこかで失敗したら false を返す
   end
 end
 
