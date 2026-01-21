@@ -26,5 +26,4 @@ class User < ApplicationRecord
   # アソシエーション設定
   has_many :items # ユーザーと出品した商品の関係は1対多
   has_many :orders # ユーザーと購入した商品の関係は1対多
-
 end

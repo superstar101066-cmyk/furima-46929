@@ -69,9 +69,9 @@ class ItemsController < ApplicationController
   # 出品者本人か確認し、違う場合はトップページにリダイレクトするメソッド
   def move_to_index
     # 「出品者本人ではない」 または 「すでに売却済み（orderが存在する）」 の場合、トップへ
-    if current_user.id != @item.user_id || @item.order.present?
-      redirect_to root_path
-    end
+    return unless current_user.id != @item.user_id || @item.order.present?
+
+    redirect_to root_path
   end
 end
 

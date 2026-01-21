@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development?
 
   # 未ログイン時のアクセス制限
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
   # 共通の@item取得処理
   before_action :set_item, only: [:index, :create]
   # アイテム取得後にリダイレクト判定を行う
@@ -37,10 +37,10 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    # 「出品者自身である」または「すでに売れている」場合、トップページへ戻す 
-    if current_user.id == @item.user_id || @item.order.present?
-      redirect_to root_path
-    end
+    # 「出品者自身である」または「すでに売れている」場合、トップページへ戻す
+    return unless current_user.id == @item.user_id || @item.order.present?
+
+    redirect_to root_path
   end
 
   def order_params

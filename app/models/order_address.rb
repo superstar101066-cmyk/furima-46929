@@ -10,13 +10,13 @@ class OrderAddress
     validates :user_id # ユーザーIDのバリデーション
     validates :item_id # 商品IDのバリデーション
     # 郵便番号のバリデーション (ハイフンありの形式のみ許可)
-    validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)"}
+    validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Enter it as follows (e.g. 123-4567)' }
     # 都道府県IDのバリデーション (---を選択したまま保存されるのを防ぐ)
-    validates :prefecture_id, numericality: {other_than: 1, message: "can't be blank"}
+    validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city # 市区町村のバリデーション
     validates :house_number # 番地のバリデーション
     # 電話番号のバリデーション (ハイフンなしの10桁or11桁の数値のみ許可)
-    validates :phone_number, format: {with: /\A[0-9]{10,11}\z/, message: "is invalid"}
+    validates :phone_number, format: { with: /\A[0-9]{10,11}\z/, message: 'is invalid' }
     validates :token # PAY.JPからの決済用トークンを受け取るための属性
   end
 
@@ -36,7 +36,7 @@ class OrderAddress
       )
     end
     true # すべて成功したら true を返す
-  rescue => e
+  rescue StandardError
     false # どこかで失敗したら false を返す
   end
 end
