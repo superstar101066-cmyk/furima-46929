@@ -7,8 +7,9 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_date_status
 
-  # userモデルとのアソシエーション設定
-  belongs_to :user
+  # アソシエーション設定
+  belongs_to :user # 出品した商品とユーザーの関係は多対1
+  has_one :order # 出品した商品と購入した商品の関係は1対1
   # データベースにはimageカラムは存在しないが、Active Storageで画像を扱うための設定
   # モデル（item.rb）に has_one_attached :image と記述したことで、
   # あたかも image というカラムがあるかのように Rails上で扱うことができるようになる
