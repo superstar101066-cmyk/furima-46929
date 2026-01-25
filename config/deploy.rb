@@ -26,6 +26,8 @@ set :unicorn_config_path, -> { "#{current_path}/config/unicorn.rb" }
 set :keep_releases, 5
 # NokogiriなどのGemインストールエラーを回避する設定
 set :bundle_config, { force_ruby_platform: true }
+set :rails_env, "production"
+set :unicorn_rack_env, "production"
 
 # デプロイ処理が終わった後、Unicornを再起動するための記述
 after 'deploy:publishing', 'deploy:restart'
